@@ -3,7 +3,6 @@ package ru.netology.page;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import lombok.val;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -33,13 +32,8 @@ public class DashboardPage {
         return extractBalance(cards.find(text(cardNumber.substring(15, 19))).getText());
     }
 
-    public TransferPage depositToFirstCard() {
-        transferButton1.click();
-        return new TransferPage();
-    }
-
-    public TransferPage depositToSecondCard() {
-        transferButton2.click();
+    public TransferPage selectCardToTransfer(String cardNumber) {
+        cards.find(text(cardNumber.substring(15, 19))).$("button").click();
         return new TransferPage();
     }
 }

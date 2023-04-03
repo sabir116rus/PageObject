@@ -26,7 +26,7 @@ public class MoneyTransferTest {
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val firstCardBalance = dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber());
         val secondCardBalance = dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
-        val transferPage = dashboardPage.depositToFirstCard();
+        val transferPage = dashboardPage.selectCardToTransfer(getFirstCardInfo().getCardNumber());
         val amount = DataHelper.getTransferAmount(secondCardBalance);
         transferPage.transferMoney(amount, DataHelper.getSecondCardInfo());
         val expectedFirstCardBalanceAfter = firstCardBalance + amount;
@@ -44,7 +44,7 @@ public class MoneyTransferTest {
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val firstCardBalance = dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber());
         val secondCardBalance = dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
-        val transferPage = dashboardPage.depositToSecondCard();
+        val transferPage = dashboardPage.selectCardToTransfer(getSecondCardInfo().getCardNumber());
         val amount = DataHelper.getTransferAmount(firstCardBalance);
         transferPage.transferMoney(amount, DataHelper.getFirstCardInfo());
         val expectedFirstCardBalanceAfter = firstCardBalance - amount;
@@ -62,8 +62,8 @@ public class MoneyTransferTest {
         val dashboardPage = verificationPage.validVerify(verificationCode);
         val firstCardBalance = dashboardPage.getCardBalance(getFirstCardInfo().getCardNumber());
         val secondCardBalance = dashboardPage.getCardBalance(getSecondCardInfo().getCardNumber());
-        val transferPage = dashboardPage.depositToFirstCard();
-        val amount = DataHelper.getTransferAmount(secondCardBalance) * 2;
+        val transferPage = dashboardPage.selectCardToTransfer(getFirstCardInfo().getCardNumber());
+        val amount = DataHelper.getTransferAmount(secondCardBalance) + 20000;
         transferPage.transferMoney(amount, DataHelper.getSecondCardInfo());
         transferPage.transferError();
     }
